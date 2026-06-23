@@ -1,7 +1,7 @@
 import { WILDSEA } from '../config.js'
 import { enrich } from '../helpers.js'
 
-export default class WildseaItemSheet extends ItemSheet {
+export default class WildseaItemSheet extends foundry.appv1.sheets.ItemSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 600,

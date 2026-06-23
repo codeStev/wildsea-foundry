@@ -1,7 +1,7 @@
 import { WILDSEA } from '../config.js'
 import { enrich } from '../helpers.js'
 
-export default class WildseaAttributeSheet extends ItemSheet {
+export default class WildseaAttributeSheet extends foundry.appv1.sheets.ItemSheet {
   get template() {
     return `${WILDSEA.root_path}/templates/sheets/attribute.hbs`
   }

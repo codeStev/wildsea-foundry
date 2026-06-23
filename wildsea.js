@@ -23,6 +23,10 @@ import * as WildseaTracks from './system/applications/tracks/index.js'
 Hooks.once('init', () => {
   console.log('wildsea | Initializing')
 
+  // v13+ namespaced these; the bare globals are removed in v14/v15.
+  const { Actors, Items, Journal } = foundry.documents.collections
+  const { ActorSheet, ItemSheet, JournalSheet } = foundry.appv1.sheets
+
   registerSystemSettings()
 
   if (game.settings.get('wildsea', 'showDepth'))
@@ -60,8 +64,6 @@ Hooks.once('init', () => {
 
   Journal.unregisterSheet('core', JournalSheet)
   Journal.registerSheet('wildsea', WildseaJournalSheet)
-
-  CONFIG.TinyMCE.content_css = `${WILDSEA.root_path}/styles/tinymce.css`
 })
 
 Hooks.once('ready', () => {
@@ -89,25 +91,20 @@ Hooks.on('renderJournalPageSheet', (_obj, html) => {
   }
 })
 
-Hooks.on('renderSceneControls', (_controls, html) => {
-  html = $(html)
-  const dicePoolButton = $(
-    `<li class="dice-pool-control" data-control="dice-pool" data-tooltip="${game.i18n.localize(
-      'wildsea.dicePoolTitle',
-    )}">
-        <i class="fas fa-dice"></i>
-        <ol class="control-tools">
-        </ol>
-    </li>`,
-  )
+Hooks.on('getSceneControlButtons', (controls) => {
+  // v13+ replaced DOM injection (renderSceneControls) with this data-driven
+  // hook: add a tool object to a control group and core renders it.
+  const tokenTools = controls.tokens?.tools
+  if (!tokenTools) return
 
-  html.find('.main-controls').append(dicePoolButton)
-  html
-    .find('.dice-pool-control')
-    .removeClass('control-tool')
-    .on('click', async () => {
-      await game.wildsea.dicePool.toggle()
-    })
+  tokenTools.dicePool = {
+    name: 'dicePool',
+    title: 'wildsea.dicePoolTitle',
+    icon: 'fas fa-dice',
+    order: Object.keys(tokenTools).length,
+    button: true,
+    onChange: () => game.wildsea.dicePool.toggle(),
+  }
 })
 
 Hooks.once('diceSoNiceReady', (dice3d) => {

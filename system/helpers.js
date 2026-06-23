@@ -1,9 +1,11 @@
 export const enrich = async (html, secrets = false) => {
   if (html)
-    return await TextEditor.enrichHTML(html, {
-      secrets: secrets,
-      async: true,
-    })
+    return await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      html,
+      {
+        secrets: secrets,
+      },
+    )
 
   return html
 }

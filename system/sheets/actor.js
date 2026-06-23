@@ -3,7 +3,7 @@ import { clamp, clickModifiers } from '../helpers.js'
 import { renderDialog } from '../dialog.js'
 import SortableJS from '../lib/sortable.complete.esm.js'
 
-export default class WildseaActorSheet extends ActorSheet {
+export default class WildseaActorSheet extends foundry.appv1.sheets.ActorSheet {
   async getData() {
     const context = super.getData()
     context.config = WILDSEA
@@ -15,9 +15,16 @@ export default class WildseaActorSheet extends ActorSheet {
   activateListeners(html) {
     if (this.isEditable) {
       if (this.actor.isOwner) {
-        // Item context menu
-        new ContextMenu(html, '.itemContextMenu', this.itemContextMenu)
-        new ContextMenu(html, '.slimContextMenu', this.slimContextMenu)
+        // Item context menu — v13+ namespaced ContextMenu, wants an
+        // HTMLElement container, and delivers HTMLElement (not jQuery)
+        // elements to callbacks.
+        const ContextMenu = foundry.applications.ux.ContextMenu.implementation
+        new ContextMenu(html[0], '.itemContextMenu', this.itemContextMenu, {
+          jQuery: false,
+        })
+        new ContextMenu(html[0], '.slimContextMenu', this.slimContextMenu, {
+          jQuery: false,
+        })
 
         // collapse aspects and temp tracks
         html.find('.item .itemContextMenu').click(this.collapseItem.bind(this))
@@ -36,26 +43,26 @@ export default class WildseaActorSheet extends ActorSheet {
 
   itemContextMenu = [
     {
-      name: game.i18n.localize('wildsea.toChat'),
+      label: game.i18n.localize('wildsea.toChat'),
       icon: '<i class="fas fa-comment"></i>',
-      callback: (element) => {
-        const itemId = element.closest('.item').data('item-id')
+      onClick: (_event, element) => {
+        const itemId = element.closest('.item').dataset.itemId
         this.sendItemToChat(itemId)
       },
     },
     {
-      name: game.i18n.localize('wildsea.edit'),
+      label: game.i18n.localize('wildsea.edit'),
       icon: '<i class="fas fa-edit"></i>',
-      callback: (element) => {
-        const itemId = element.closest('.item').data('item-id')
+      onClick: (_event, element) => {
+        const itemId = element.closest('.item').dataset.itemId
         this.actor.items.get(itemId).sheet.render(true)
       },
     },
     {
-      name: game.i18n.localize('wildsea.delete'),
+      label: game.i18n.localize('wildsea.delete'),
       icon: '<i class="fas fa-trash"></i>',
-      callback: (element) => {
-        const itemId = element.closest('.item').data('item-id')
+      onClick: (_event, element) => {
+        const itemId = element.closest('.item').dataset.itemId
         this.actor.deleteEmbeddedDocuments('Item', [itemId])
       },
     },
@@ -63,29 +70,29 @@ export default class WildseaActorSheet extends ActorSheet {
 
   slimContextMenu = [
     {
-      name: game.i18n.localize('wildsea.toChat'),
+      label: game.i18n.localize('wildsea.toChat'),
       icon: '<i class="fas fa-comment"></i>',
-      callback: (element) => {
-        const itemId = element.data('item-id')
-        const itemType = element.data('item-type')
+      onClick: (_event, element) => {
+        const itemId = element.dataset.itemId
+        const itemType = element.dataset.itemType
         this.sendSlimToChat(itemId, itemType)
       },
     },
     {
-      name: game.i18n.localize('wildsea.edit'),
+      label: game.i18n.localize('wildsea.edit'),
       icon: '<i class="fas fa-edit"></i>',
-      callback: (element) => {
-        const itemId = element.data('item-id')
-        const itemType = element.data('item-type')
+      onClick: (_event, element) => {
+        const itemId = element.dataset.itemId
+        const itemType = element.dataset.itemType
         this.editSlimItem(itemId, itemType)
       },
     },
     {
-      name: game.i18n.localize('wildsea.delete'),
+      label: game.i18n.localize('wildsea.delete'),
       icon: '<i class="fas fa-trash"></i>',
-      callback: (element) => {
-        const itemId = element.data('item-id')
-        const itemType = element.data('item-type')
+      onClick: (_event, element) => {
+        const itemId = element.dataset.itemId
+        const itemType = element.dataset.itemType
         this.removeSlimItem(itemId, itemType)
       },
     },
@@ -206,10 +213,13 @@ export default class WildseaActorSheet extends ActorSheet {
       item.title = game.i18n.localize(`wildsea.${itemType}`)
 
       const template = 'systems/wildsea/templates/chat/slim.hbs'
-      const html = await renderTemplate(template, item)
+      const html = await foundry.applications.handlebars.renderTemplate(
+        template,
+        item,
+      )
 
       ChatMessage.create({
-        user: game.user._id,
+        author: game.user.id,
         speaker: ChatMessage.getSpeaker(),
         content: html,
       })
@@ -220,10 +230,13 @@ export default class WildseaActorSheet extends ActorSheet {
     const item = this.actor.items.get(itemId)
     if (item) {
       const template = 'systems/wildsea/templates/chat/item.hbs'
-      const html = await renderTemplate(template, item)
+      const html = await foundry.applications.handlebars.renderTemplate(
+        template,
+        item,
+      )
 
       ChatMessage.create({
-        user: game.user._id,
+        author: game.user.id,
         speaker: ChatMessage.getSpeaker(),
         content: html,
       })

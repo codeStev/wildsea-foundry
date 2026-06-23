@@ -4,7 +4,10 @@ export const renderDialog = async (
   data = {},
   template = '/systems/wildsea/templates/dialogs/simple.hbs',
 ) => {
-  const content = await renderTemplate(template, data)
+  const content = await foundry.applications.handlebars.renderTemplate(
+    template,
+    data,
+  )
 
   return new Promise((resolve) => {
     const dialog = {

@@ -135,16 +135,14 @@ export default class WildseaDicePool extends FormApplication {
     const [roll, outcome] = await Dice.rollPool(dicePool)
 
     const chatData = {
-      user: game.user._id,
+      author: game.user.id,
       speaker: ChatMessage.getSpeaker(),
-      content: await renderTemplate(
+      content: await foundry.applications.handlebars.renderTemplate(
         'systems/wildsea/templates/chat/roll.hbs',
         outcome,
       ),
-      roll,
       rolls: [roll],
       sound: CONFIG.sounds.dice,
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
     }
     ChatMessage.create(chatData)
   }

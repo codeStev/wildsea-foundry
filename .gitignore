@@ -4,3 +4,8 @@ node_modules/*
 *.log
 .vscode
 .idea/*
+
+# Local dev deploy script — contains private server address/path, do not publish
+deploy.sh
+# Release build output
+dist/

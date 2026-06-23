@@ -17,17 +17,22 @@
     {
       "name": "Dan Stricoff",
       "discord": "Mutex"
+    },
+    {
+      "name": "codeStev",
+      "url": "https://github.com/codeStev",
+      "flags": { "fork": "v14 compatibility maintainer" }
     }
   ],
-  "version": "0.2.1",
-  "url": "https://gitlab.com/pacosgrove1/wildsea-foundry",
-  "manifest": "https://gitlab.com/api/v4/projects/pacosgrove1%2Fwildsea-foundry/packages/generic/wildsea-foundry/latest/system.json",
-  "download": "https://gitlab.com/pacosgrove1/wildsea-foundry/-/releases/v0.2.1/downloads/wildsea-foundry-v0.2.1.zip",
+  "version": "0.3.0",
+  "url": "https://github.com/codeStev/wildsea-foundry",
+  "manifest": "https://github.com/codeStev/wildsea-foundry/releases/latest/download/system.json",
+  "download": "https://github.com/codeStev/wildsea-foundry/releases/latest/download/wildsea.zip",
 
   "compatibility": {
-    "minimum": "11",
-    "verified": "12",
-    "maximum": "13"
+    "minimum": "12",
+    "verified": "14",
+    "maximum": "14"
   },
   "media": [
     {

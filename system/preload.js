@@ -41,7 +41,7 @@ export const loadHandlebarsPartials = () => {
     'systems/wildsea/templates/sheets/adversary/resources.hbs',
   ]
 
-  return loadTemplates(partials)
+  return foundry.applications.handlebars.loadTemplates(partials)
 }
 
 export const loadHandlebarsHelpers = () => {
