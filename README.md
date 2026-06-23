@@ -1,6 +1,10 @@
 # The Wildsea
 
-A FoundryVTT implementation of character sheets for [The Wildsea](https://thewildsea.co.uk/) by Felix Isaacs.
+This is a Fork of [FoundryVTT The Wildsea Game System by Paul C](https://gitlab.com/pacosgrove1/wildsea-foundry)
+
+Currently it contains an implementation for The Wildsea Actor Sheets.
+The only thing I did yet was a minimally invasive compatibility patch for FoundryVTT 14.
+Since it still uses the ApplicationV1-API it will definitely break on FoundryVTT 16.
 
 ![Player Sheet](https://i.imgur.com/8oHSKRu.png)
 
@@ -8,4 +12,4 @@ A FoundryVTT implementation of character sheets for [The Wildsea](https://thewil
 
 Copy the following URL into the `Manifest URL` field of the `Install System` dialog and click `Install`
 
-- `https://gitlab.com/api/v4/projects/pacosgrove1%2Fwildsea-foundry/packages/generic/wildsea-foundry/latest/system.json`
+- `https://github.com/codeStev/wildsea-foundry/releases/download/v0.3.0/system.json`
