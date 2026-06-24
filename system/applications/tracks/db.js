@@ -30,17 +30,24 @@ export class WildseaTrackDatabase extends Collection {
     }
   }
 
+  // Parse the "groups" length string ("3,3,4") into positive segment sizes.
+  parseGroups(groups = '') {
+    return groups
+      .split(/[,\|]/)
+      .map((segment) => parseInt(segment, 10))
+      .filter((n) => n > 0)
+  }
+
   addTrack(data = {}) {
     const { label, groups } = data
-    if (label.trim() === '' || groups === '')
+    const segments = this.parseGroups(groups)
+    if (label.trim() === '' || segments.length === 0)
       return ui.notifications.warn(
         game.i18n.localize('wildsea.TRACKS.requiredFields'),
       )
 
     const tracks = this.getTrackData()
-    const max = data.groups.split(/[,\|]/).reduce((total, current) => {
-      return total + parseInt(current)
-    }, 0)
+    const max = segments.reduce((total, n) => total + n, 0)
     const newTrack = {
       id: foundry.utils.randomID(),
       ...data,
@@ -54,15 +61,14 @@ export class WildseaTrackDatabase extends Collection {
 
   updateTrack(id, data = {}) {
     const { label, groups } = data
-    if (label.trim() === '' || groups === '')
+    const segments = this.parseGroups(groups)
+    if (label.trim() === '' || segments.length === 0)
       return ui.notifications.warn(
         game.i18n.localize('wildsea.TRACKS.requiredFields'),
       )
 
     const tracks = this.getTrackData()
-    const max = data.groups.split(/[,\|]/).reduce((total, current) => {
-      return total + (parseInt(current) || 0)
-    }, 0)
+    const max = segments.reduce((total, n) => total + n, 0)
     const burn = clamp(tracks[id].burn, max)
     const value = clamp(tracks[id].value, max)
 

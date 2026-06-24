@@ -11,7 +11,9 @@
       {{localize "wildsea.TRACKS.trackGroups"}}
     </label>
     <div class="form-fields">
-      <input type="text" id="groups" value="{{groups}}" placeholder="{{localize "wildsea.TRACKS.trackGroups"}}" />
+      <input type="text" id="groups" inputmode="numeric" value="{{groups}}"
+        placeholder="3,3,4"
+        oninput="this.value = this.value.replace(/[^0-9,|]/g, '')" />
       <i class="fas fa-question-circle flex0" data-tooltip="{{localize "wildsea.TRACKS.trackGroupsHelpText"}}"></i>
     </div>
   </div>
