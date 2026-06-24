@@ -6,7 +6,12 @@
         <div class="flexcol spaced">
           <input id="name" class="corners" type="text" name="name" value="{{item.name}}" placeholder="{{localize "wildsea.name"}}" />
           <div class="flexrow spaced">
-            {{> "systems/wildsea/templates/shared/text_field.hbs" field="system.tags" label="wildsea.tags" value=system.tags}}
+            <div class="form-group flexrow">
+              <label class="flex1">{{localize "wildsea.tags"}}</label>
+              <div class="form-fields flex3">
+                {{> "systems/wildsea/templates/shared/tags.hbs" tags=system.tags}}
+              </div>
+            </div>
             {{> "systems/wildsea/templates/shared/select_field.hbs" field="system.type" label="wildsea.type" value=system.type includeEmpty=true selectOptions=config.resourceTypes}}
           </div>
         </div>

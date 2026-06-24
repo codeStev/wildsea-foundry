@@ -24,7 +24,7 @@
       "flags": { "fork": "v14 compatibility maintainer" }
     }
   ],
-  "version": "0.3.0",
+  "version": "0.3.1",
   "url": "https://github.com/codeStev/wildsea-foundry",
   "manifest": "https://github.com/codeStev/wildsea-foundry/releases/latest/download/system.json",
   "download": "https://github.com/codeStev/wildsea-foundry/releases/latest/download/wildsea.zip",

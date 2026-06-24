@@ -1,0 +1,9 @@
+<div class="tag-list">
+  {{#each tags as |tag idx|}}
+    <span class="tag" style="background-color: {{tag.color}}" data-tag-index="{{idx}}">
+      <a class="tag-color" title="{{localize "wildsea.edit"}}">{{tag.label}}</a>
+      <a class="tag-remove" title="{{localize "wildsea.delete"}}">&times;</a>
+    </span>
+  {{/each}}
+  <input type="text" class="tag-input corners" placeholder="+ {{localize "wildsea.tags"}}" />
+</div>

@@ -1,10 +1,31 @@
 # Fork Changelog — Wildsea for Foundry VTT v14
 
-This changelog tracks **fork-specific compatibility work** to run "The Wildsea (Unofficial)"
-on Foundry VTT v14. It is separate from the upstream `CHANGELOG.md`.
+This changelog tracks **fork-specific changes** (v14 compatibility and beyond) to
+"The Wildsea (Unofficial)". It is separate from the upstream `CHANGELOG.md`.
 
 Upstream baseline: **v0.2.1** (compatibility 11–13, verified 12).
 Tested against: **felddy/foundryvtt:14**.
+
+## 0.3.1
+
+### Added
+- **German (de) localization** — full translation of all UI strings (`lang/de.json`),
+  registered in `system.json`.
+- **Resource tags as coloured pills.** Resource `tags` changed from a single string to an
+  array of `{ label, color }`. Tags are added / removed / recoloured **inline** on the
+  player, adversary, and resource-item sheets: type a tag and press **Enter** *or click
+  away* to add it; click a pill to **cycle its colour** through a preset palette
+  (neutral / good / bad / caution / info); click **×** to remove. Shared logic lives in
+  `system/tags.js` and the `templates/shared/tags.hbs` partial.
+
+### Migration
+- Reworked `system/migrations.js` into a **versioned, idempotent** migration runner. New
+  migration normalises legacy string `tags` into the array form (gated on the stored
+  migration version; the legacy track-visibility migration is preserved and no longer
+  re-runs on already-migrated worlds).
+
+### Manifest
+- Version bumped to `0.3.1`.
 
 ## 0.3.0 — v14 compatibility
 

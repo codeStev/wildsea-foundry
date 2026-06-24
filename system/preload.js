@@ -12,6 +12,7 @@ export const loadHandlebarsPartials = () => {
     'systems/wildsea/templates/shared/rating_mods.hbs',
     'systems/wildsea/templates/shared/select_field.hbs',
     'systems/wildsea/templates/shared/slim_item.hbs',
+    'systems/wildsea/templates/shared/tags.hbs',
     'systems/wildsea/templates/shared/text_field.hbs',
     'systems/wildsea/templates/shared/track.hbs',
     'systems/wildsea/templates/sheets/player/background.hbs',

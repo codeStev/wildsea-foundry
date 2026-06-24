@@ -715,3 +715,42 @@ a.inline-roll {
 @import url(./chat.less);
 @import url(./journals.less);
 @import url(./tracks.less);
+
+.wildsea {
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.85em;
+    line-height: 1.7;
+
+    .tag-color {
+      color: #fff;
+      cursor: pointer;
+    }
+    .tag-remove {
+      color: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      font-weight: bold;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  .tag-input {
+    flex: 0 0 auto;
+    width: 7em;
+    font-size: 0.85em;
+    padding: 1px 6px;
+  }
+}

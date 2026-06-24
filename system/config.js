@@ -31,6 +31,9 @@ WILDSEA.languages = [
 ]
 WILDSEA.milestoneSubtypes = ['major', 'minor']
 WILDSEA.resourceTypes = ['salvage', 'specimen', 'whisper', 'chart']
+// Preset palette for Resource tag pills. First entry is the default colour.
+// All have white text for guaranteed contrast. neutral, good, bad, caution, info.
+WILDSEA.tagColors = ['#7f8c8d', '#27ae60', '#c0392b', '#d68910', '#2980b9']
 WILDSEA.shipRatings = ['armour', 'seals', 'speed', 'saws', 'stealth', 'tilt']
 WILDSEA.skillMax = 3
 WILDSEA.skills = [

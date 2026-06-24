@@ -1,6 +1,7 @@
 import { WILDSEA } from '../config.js'
 import { enrich, clamp } from '../helpers.js'
 import WildseaActorSheet from './actor.js'
+import { activateTagListeners } from '../tags.js'
 
 export default class WildseaAdversarySheet extends WildseaActorSheet {
   get template() {
@@ -48,6 +49,13 @@ export default class WildseaAdversarySheet extends WildseaActorSheet {
   activateListeners(html) {
     // Add item
     html.find('.addItem').click(this.addItem.bind(this))
+
+    if (this.isEditable && this.actor.isOwner) {
+      // resource tags
+      activateTagListeners(html, (el) =>
+        this.actor.items.get(el.closest('.item').dataset.itemId),
+      )
+    }
 
     super.activateListeners(html)
   }

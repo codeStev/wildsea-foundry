@@ -1260,3 +1260,37 @@ a.inline-roll.unstyled {
 .track-panel .track-list .track .slots .break:last-child {
   display: none;
 }
+.wildsea .tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.wildsea .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85em;
+  line-height: 1.7;
+}
+.wildsea .tag .tag-color {
+  color: #fff;
+  cursor: pointer;
+}
+.wildsea .tag .tag-remove {
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  font-weight: bold;
+}
+.wildsea .tag .tag-remove:hover {
+  color: #fff;
+}
+.wildsea .tag-input {
+  flex: 0 0 auto;
+  width: 7em;
+  font-size: 0.85em;
+  padding: 1px 6px;
+}

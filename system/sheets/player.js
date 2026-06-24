@@ -1,6 +1,7 @@
 import { WILDSEA } from '../config.js'
 import { enrich, listToRows, clamp, clickModifiers } from '../helpers.js'
 import WildseaActorSheet from './actor.js'
+import { activateTagListeners } from '../tags.js'
 
 export default class WildseaPlayerSheet extends WildseaActorSheet {
   get template() {
@@ -73,6 +74,11 @@ export default class WildseaPlayerSheet extends WildseaActorSheet {
 
         // rollable links
         html.find('.roll').click(this.updateRoll.bind(this))
+
+        // resource tags
+        activateTagListeners(html, (el) =>
+          this.actor.items.get(el.closest('.item').dataset.itemId),
+        )
       }
     }
 
