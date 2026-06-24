@@ -5,7 +5,8 @@ node_modules/*
 .vscode
 .idea/*
 
-# Local dev deploy script — contains private server address/path, do not publish
+# Local dev deploy scripts — contain private server address/path, do not publish
 deploy.sh
+deploy-packs.sh
 # Release build output
 dist/
